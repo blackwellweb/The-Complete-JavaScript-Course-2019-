@@ -148,6 +148,7 @@ console.log(ages6);
 /*------------------------------------------------------------------*/
 /*------------------------------------------------------------------*/
 
+/*
 // ES5
 var box5 = {
     color: 'green',
@@ -180,4 +181,113 @@ const box6 = {
         });
     }
 }
-box6.clickMe();
+//box6.clickMe();
+
+
+// ES6
+// This will not work because the this keyword now points to the gobal object
+// not box66 as the click me is an arrow function, so function that shares the
+// "this" keyword with its surrounding but in this case its surrounding is the gobal object.
+// BE CEARFUL WITH ARROW FUNCTIONS!
+// const box66 = {
+//     color: 'green',
+//     position: 1,
+//     clickMe: () => {
+//         document.querySelector('.green').addEventListener('click', () => {
+
+//             // We now have a function that shares the this keyword with its surrounding
+//             // so we can use the this keyword from the clickme method
+//             const str = 'This is box number ' + this.position + ' and it is ' + this.color;
+//             alert(str);
+//         });
+//     }
+// }
+
+// box66.clickMe();
+
+
+function Person(name) {
+    this.name = name;
+}
+
+// ES5
+Person.prototype.myFriends5 = function (friends) {
+
+    var arr = friends.map(function (el) {
+        return this.name + ' is friends with ' + el;
+    }.bind(this));
+
+    console.log(arr);
+}
+
+var friends = ['Bob', 'Jane', 'Mark'];
+
+new Person('John').myFriends5(friends);
+
+
+
+
+// ES6
+Person.prototype.myFriends6 = function (friends) {
+
+    var arr = friends.map(el => `${this.name}  is friends with  ${el}`);
+    console.log(arr);
+}
+
+var friends = ['Bob', 'Jane', 'Mark'];
+
+new Person('Mike').myFriends6(friends);
+
+*/
+
+/* Destructuring ---------------------------------------------------*/
+/*------------------------------------------------------------------*/
+/*------------------------------------------------------------------*/
+
+/*
+// ES5
+var john = ['John', 26];
+//var name = john[0];
+//var age = john[1];
+
+// ES6
+const [name, age] = ['John', 26];
+console.log(name);
+console.log(age);
+
+const obj = {
+    firstName: 'John',
+    lastName: 'Smith'
+};
+
+const { firstName, lastName } = obj;
+console.log(firstName);
+console.log(lastName);
+
+const { firstName: a, lastName: b } = obj;
+console.log(a);
+console.log(b);
+
+
+function calcAgeRetirement(year) {
+    const age = new Date().getFullYear() - year;
+    return [age, 65 - age];
+};
+
+const [age2, retirement] = calcAgeRetirement(1990);
+console.log(age2);
+console.log(retirement);
+*/
+
+/* Arrays in ES6 / ES2015 ------------------------------------------*/
+/*------------------------------------------------------------------*/
+/*------------------------------------------------------------------*/
+
+const boxes = document.querySelectorAll('.box');
+
+// ES5
+var boxesArr5 = Array.prototype.slice.call(boxes);
+boxesArr5.forEach(function (cur) {
+    cur.style.backgroundColor = 'dodgerblue';
+});
+
