@@ -283,11 +283,94 @@ console.log(retirement);
 /*------------------------------------------------------------------*/
 /*------------------------------------------------------------------*/
 
+/*
 const boxes = document.querySelectorAll('.box');
 
 // ES5
-var boxesArr5 = Array.prototype.slice.call(boxes);
-boxesArr5.forEach(function (cur) {
-    cur.style.backgroundColor = 'dodgerblue';
-});
+// var boxesArr5 = Array.prototype.slice.call(boxes);
+// boxesArr5.forEach(function (cur) {
+//     cur.style.backgroundColor = 'dodgerblue';
+// });
 
+
+// ES6
+const boxesArr6 = Array.from(boxes);
+boxesArr6.forEach(cur => cur.style.backgroundColor = 'dodgerblue');
+
+// Can also do it like this
+// Array.from(boxes).forEach(cur => cur.style.backgroundColor = 'dodgerblue');
+
+
+
+// ES5
+// for (var i = 0; i < boxesArr5.length; i++) {
+//     if (boxesArr5[i].className === 'box blue') {
+//         // continue will skip this iteration of the loop and go right to the next one
+//         // If it was the break keyword it would break the loop and the loop would not continue
+//         continue;
+//         //break;
+//     }
+//     boxesArr5[i].textContent = 'I changed to blue!';
+// }
+
+
+// ES6
+// for (const cur of boxesArr6) {
+//     if (cur.className === 'box blue') {
+//         continue;
+//     }
+//     cur.textContent = 'I changed to blue!';
+// }
+
+// Can also do it like this
+for (const cur of boxesArr6) {
+    if (cur.className.includes('blue')) {
+        continue;
+    }
+    cur.textContent = 'I changed to blue!';
+}
+
+// ES5
+var ages = [12, 17, 8, 21, 14, 11];
+
+var full = ages.map(function (cur) {
+    return cur >= 18;
+});
+console.log(full); // Array(6) [ false, false, false, true, false, false ]
+console.log(full.indexOf(true)); // 3
+console.log(ages[full.indexOf(true)]); // 21
+
+// ES6
+console.log(ages.findIndex(cur => cur >= 18)); // 3
+
+// if we didn't want to find the index and all we interested
+// in was finding the value that was greater than 18.
+console.log(ages.find(cur => cur >= 18)); // 21
+*/
+
+
+/* The Spread Operator ---------------------------------------------*/
+/*------------------------------------------------------------------*/
+/*------------------------------------------------------------------*/
+
+function addFourAges(a, b, c, d) {
+    return a + b + c + d;
+}
+
+var sum1 = addFourAges(18, 30, 12, 21);
+console.log(sum1); // 81
+
+// ES5
+var ages = [18, 30, 12, 21];
+var sum2 = addFourAges.apply(null, ages);
+console.log(sum2); // 81
+
+// ES6
+// What this operator here does is to expand this array 
+// into its components, so in this case 18, 30, 12 and 21
+const sum3 = addFourAges(...ages);
+console.log(sum3); // 81 
+
+
+const familySmith = ['John', 'Jane', 'Mark'];
+const familyMiller = ['Mary', 'Bob', 'Ann'];
