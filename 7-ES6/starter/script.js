@@ -353,6 +353,7 @@ console.log(ages.find(cur => cur >= 18)); // 21
 /*------------------------------------------------------------------*/
 /*------------------------------------------------------------------*/
 
+/*
 function addFourAges(a, b, c, d) {
     return a + b + c + d;
 }
@@ -366,11 +367,133 @@ var sum2 = addFourAges.apply(null, ages);
 console.log(sum2); // 81
 
 // ES6
-// What this operator here does is to expand this array 
+// What this operator here does is to expand this array
 // into its components, so in this case 18, 30, 12 and 21
 const sum3 = addFourAges(...ages);
-console.log(sum3); // 81 
+console.log(sum3); // 81
 
 
 const familySmith = ['John', 'Jane', 'Mark'];
 const familyMiller = ['Mary', 'Bob', 'Ann'];
+
+//const bigFamily = [...familySmith, ...familyMiller];
+//console.log(bigFamily); // [ "John", "Jane", "Mark", "Mary", "Bob", "Ann" ]
+
+// We can also add new elements
+const bigFamily = [...familySmith, 'Lily', ...familyMiller];
+console.log(bigFamily); // [ "John", "Jane", "Mark", "Lily", "Mary", "Bob", "Ann" ]
+
+// We can also use the spread operator on node lists
+const h = document.querySelector('h1');
+const boxes = document.querySelectorAll('.box');
+// h is just a node not a node list so we don't put the spread operator before it
+const all = [h, ...boxes];
+
+// Convet the node list to an array and change the colour
+Array.from(all).forEach(cur => cur.style.color = 'purple');
+*/
+
+/* Rest Parameters -------------------------------------------------*/
+/*------------------------------------------------------------------*/
+/*------------------------------------------------------------------*/
+// Rest parameters allow use to pass an arbitrary number of arguments,
+// into a function and use these arguments in that function
+
+// NOTE rest parameters use the same notation as the spread operator "..."
+// but they are NOT THE SAME, they are the exact opposite of the spread operator.
+// The spread operator take an array and transforms it into single values
+// while the rest parameters receive a couple of single values and transforms
+// them into an array when we call a function with multiple parameters 
+
+/*
+// ES5
+function isFullage5() {
+    //console.log(arguments);
+
+    // Convet the node list to an array
+    var argsArr = Array.prototype.slice.call(arguments);
+
+    argsArr.forEach(function (cur) {
+        console.log((2016 - cur) >= 18);
+    });
+}
+
+//isFullage5(1990, 1999, 1965);
+//isFullage5(1990, 1999, 1965, 2019, 1987);
+
+
+
+// ES6
+function isFullage6(...years) {
+    years.forEach(cur => console.log((2016 - cur) >= 18));
+}
+
+isFullage6(1990, 1999, 1965);
+isFullage6(1990, 1999, 1965, 2019, 1987);
+*/
+
+
+/*
+// ES5
+function isFullage5(limit) {
+    console.log(arguments);
+
+    // Convet the node list to an array
+    var argsArr = Array.prototype.slice.call(arguments, 1);
+
+    argsArr.forEach(function (cur) {
+        console.log((2016 - cur) >= limit);
+    });
+}
+
+//isFullage5(21, 1990, 1999, 1965);
+
+
+
+
+// ES6
+function isFullage6(limit, ...years) {
+    years.forEach(cur => console.log((2016 - cur) >= limit));
+}
+
+isFullage6(21,1990, 1999, 1965);
+*/
+
+
+/* Default Parameters ----------------------------------------------*/
+/*------------------------------------------------------------------*/
+/*------------------------------------------------------------------*/
+
+/*
+function SmithPerson(firstName, yearOfBirth, lastName, nationality) {
+
+    lastName === undefined ? lastName = 'Smith' : lastName = lastName;
+    nationality === undefined ? nationality = 'american' : nationality = nationality;
+
+    this.firstName = firstName;
+    this.lastName = lastName;
+    this.yearOfBirth = yearOfBirth;
+    this.nationality = nationality;
+};
+
+
+var john = new SmithPerson('John', 1990); //  { firstName: "John", lastName: "Smith", yearOfBirth: 1990, nationality: "american" }
+var emily = new SmithPerson('Emily', 1983, 'Diaz', 'spanish'); //{ firstName: "Emily", lastName: "Diaz", yearOfBirth: 1983, nationality: "spanish" }
+*/
+
+
+
+
+// ES6
+// If we do not specifically say what the lastName and nationality it will set them them Smith and  american
+function SmithPerson(firstName, yearOfBirth, lastName = 'Smith', nationality = 'american') {
+
+    this.firstName = firstName;
+    this.lastName = lastName;
+    this.yearOfBirth = yearOfBirth;
+    this.nationality = nationality;
+};
+
+
+var john = new SmithPerson('John', 1990); //  { firstName: "John", lastName: "Smith", yearOfBirth: 1990, nationality: "american" }
+var emily = new SmithPerson('Emily', 1983, 'Diaz', 'spanish'); //{ firstName: "Emily", lastName: "Diaz", yearOfBirth: 1983, nationality: "spanish" }
