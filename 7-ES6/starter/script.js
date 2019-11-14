@@ -483,7 +483,7 @@ var emily = new SmithPerson('Emily', 1983, 'Diaz', 'spanish'); //{ firstName: "E
 
 
 
-
+/*
 // ES6
 // If we do not specifically say what the lastName and nationality it will set them them Smith and  american
 function SmithPerson(firstName, yearOfBirth, lastName = 'Smith', nationality = 'american') {
@@ -497,3 +497,93 @@ function SmithPerson(firstName, yearOfBirth, lastName = 'Smith', nationality = '
 
 var john = new SmithPerson('John', 1990); //  { firstName: "John", lastName: "Smith", yearOfBirth: 1990, nationality: "american" }
 var emily = new SmithPerson('Emily', 1983, 'Diaz', 'spanish'); //{ firstName: "Emily", lastName: "Diaz", yearOfBirth: 1983, nationality: "spanish" }
+*/
+
+/* Maps ------------------------------------------------------------*/
+/*------------------------------------------------------------------*/
+/*------------------------------------------------------------------*/
+
+// A map is a new key-value data structure in ES6 and one of the big
+// differences is that in maps, we can use anything for the keys.
+// So with an object we are limited to strings, but in maps we can use
+// any kind of primitive value or even function or objects as keys.
+
+/*
+const question = new Map();
+question.set('question', 'What is the the official name of the latest major JavaScript version?');
+question.set(1, 'ES5');
+question.set(2, 'ES6');
+question.set(3, 'ES2015');
+question.set(4, 'ES7');
+question.set('correct', 3);
+question.set(true, ' Correct answer :D');
+question.set(false, 'Wrong please try again!');
+
+
+//console.log(question.get('question')); // What is the the official name of the latest major JavaScript version?
+//console.log(question.size); // 8
+
+
+if (question.has(4)) {
+    //question.delete(4); // Will delete (4, 'ES7')
+    //console.log('Answer 4 is here');
+}
+
+// question.clear(); this will delete everything
+
+//question.forEach((value, key) => console.log(`This is the ${key}, and it's set to ${value}`));
+
+for (let [key, value] of question.entries()) {
+    if (typeof (key) === 'number') {
+        console.log(`Answer ${key}: ${value}`);
+    }
+}
+
+const ans = parseInt(prompt('Write the correct answer'));
+console.log(question.get(ans === question.get('correct')));
+
+*/
+
+/* Classes ---------------------------------------------------------*/
+/*------------------------------------------------------------------*/
+/*------------------------------------------------------------------*/
+
+// ES5 
+var Person5 = function (name, yearOfBirth, job) {
+    this.name = name;
+    this.yearOfBirth = yearOfBirth;
+    this.job = job;
+};
+
+Person5.prototype.calculateAge = function () {
+    var age = new Date().getFullYear - this.yearOfBirth;
+    console.log(age);
+};
+
+var john5 = new Person5('John', 1990, 'teacher');
+
+
+
+
+// ES6
+// So under the hood of JavaScript, behind the scenes, converted 
+// to the exact same thing as we wrote above(Person5)
+// This is just syntactic suger, that make it easier to write classes
+class Person6 {
+    constructor(name, yearOfBirth, job) {
+        this.name = name;
+        this.yearOfBirth = yearOfBirth;
+        this.job = job;
+    }
+
+    calculateAge() {
+        const age = new Date().getFullYear - this.yearOfBirth;
+        console.log(age);
+    }
+}
+
+const john6 = new Person6('John', 1990, 'teacher');
+
+// Another thing we can do with classes is to add static methods.
+// Static methods are methods that are simply attached to the class
+// but not inherited by the class instances so by objects we create through that class.
