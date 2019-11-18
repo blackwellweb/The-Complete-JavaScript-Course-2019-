@@ -548,7 +548,8 @@ console.log(question.get(ans === question.get('correct')));
 /*------------------------------------------------------------------*/
 /*------------------------------------------------------------------*/
 
-// ES5 
+/*
+// ES5
 var Person5 = function (name, yearOfBirth, job) {
     this.name = name;
     this.yearOfBirth = yearOfBirth;
@@ -566,9 +567,11 @@ var john5 = new Person5('John', 1990, 'teacher');
 
 
 // ES6
-// So under the hood of JavaScript, behind the scenes, converted 
+// So under the hood of JavaScript, behind the scenes, converted
 // to the exact same thing as we wrote above(Person5)
 // This is just syntactic suger, that make it easier to write classes
+//  NOTE Class definitons are not hoisted, so we need to implement the class before we us it
+// And we can only add methods to classes but not properties
 class Person6 {
     constructor(name, yearOfBirth, job) {
         this.name = name;
@@ -587,3 +590,211 @@ const john6 = new Person6('John', 1990, 'teacher');
 // Another thing we can do with classes is to add static methods.
 // Static methods are methods that are simply attached to the class
 // but not inherited by the class instances so by objects we create through that class.
+// Not supe helpful but good to know
+
+// class Person6 {
+//     constructor(name, yearOfBirth, job) {
+//         this.name = name;
+//         this.yearOfBirth = yearOfBirth;
+//         this.job = job;
+//     }
+
+//     calculateAge() {
+//         const age = new Date().getFullYear - this.yearOfBirth;
+//         console.log(age);
+//     }
+
+//     static greeting() {
+//         console.log('Hey there');
+//     }
+// }
+
+// const john6 = new Person6('John', 1990, 'teacher');
+
+// Person6.greeting();
+*/
+
+/* Classes with Subclasses------------------------------------------*/
+/*------------------------------------------------------------------*/
+/*------------------------------------------------------------------*/
+
+/*
+
+// ES5
+var Person5 = function (name, yearOfBirth, job) {
+    this.name = name;
+    this.yearOfBirth = yearOfBirth;
+    this.job = job;
+};
+
+Person5.prototype.calculateAge = function () {
+    var age = new Date().getFullYear() - this.yearOfBirth;
+    console.log(age);
+};
+
+
+var Athlete5 = function (name, yearOfBirth, job, olymicGames, medals) {
+    Person5.call(this, name, yearOfBirth, job);
+    this.olymicGames = olymicGames;
+    this.medals = medals;
+};
+
+
+
+Athlete5.prototype = Object.create(Person5.prototype);
+
+Athlete5.prototype.wonMedal = function () {
+    this.medals++;
+    console.log(this.medals);
+};
+
+var johnAthlete5 = new Athlete5('John', 1990, 'swimmer', 3, 10);
+
+
+johnAthlete5.calculateAge();
+johnAthlete5.wonMedal();
+
+
+
+
+//ES6
+class Person6 {
+    constructor(name, yearOfBirth, job) {
+        this.name = name;
+        this.yearOfBirth = yearOfBirth;
+        this.job = job;
+    }
+
+    calculateAge() {
+        const age = new Date().getFullYear() - this.yearOfBirth;
+        console.log(age);
+    }
+
+}
+
+class Athlete6 extends Person6 {
+    constructor(name, yearOfBirth, job, olymicGames, medals) {
+        super(name, yearOfBirth, job); // call the super class (Person6)
+        this.olymicGames = olymicGames;
+        this.medals = medals;
+    }
+
+    wonMedal() {
+        this.medals++;
+        console.log(this.medals);
+    }
+}
+
+const johnAthlete6 = new Athlete6('John', 1990, 'swimmer', 3, 10);
+
+johnAthlete6.wonMedal();
+johnAthlete6.calculateAge();
+
+*/
+
+
+/* CODING CHALLENGE 8 ----------------------------------------------*/
+/*------------------------------------------------------------------*/
+/*------------------------------------------------------------------*/
+
+// class Parks {
+//     constructor(numberOfParks, allParkAges) {
+//         this.numberOfParks = numberOfParks;
+//         this.allParkAges = allParkAges;
+//     }
+
+//     averageAge() {
+//         const avAge = this.allParkAges / this.numberOfParks;
+//         console.log(`Our ${this.numberOfParks} have an average age of ${avAge}`);
+//     }
+// }
+
+// class IndividualPark extends Park {
+//     constructor(numberOfParks, allParkAges, name, age, trees, area) {
+//         super(numberOfParks, allParkAges);
+//         this.name = name;
+//         this.age = age;
+//         this.trees = trees;
+//         this.area = area;
+//     }
+
+//     getTreeDensity() {
+//         const treeDensity = this.trees / this.area;
+//         console.log(`${this.name} thas a tree density of ${treeDensity} trees per square km`);
+//     }
+
+//}
+
+
+//const newPark = new IndividualPark('Green Park', 1, 10, 1);
+//const allParks = new Parks(0)
+//const greenPark = new IndividualPark('Green Park')
+
+//const john6 = new Person6('John', 1990, 'teacher');
+//const park = new Parks(3, 100);
+//park.averageAge();
+
+// class Parks {
+//     constructor(numberOfParks, parkAges) {
+//         this.numberOfParks = numberOfParks;
+//         this.parkAges = parkAges;
+//     }
+
+//     averageAge() {
+
+//         let avAge;
+//         this.parkAges.forEach(e => {
+//             avAge += e;
+//         });
+
+//         console.log(`Our ${this.numberOfParks} have an average age of ${avAge}`);
+//     }
+// }
+
+// class IndividualPark extends Park {
+//     constructor(numberOfParks, allParkAges, name, age, trees, area) {
+//         super(numberOfParks, allParkAges);
+//         this.name = name;
+//         this.age = age;
+//         this.trees = trees;
+//         this.area = area;
+//     }
+
+//     getTreeDensity() {
+//         const treeDensity = this.trees / this.area;
+//         console.log(`${this.name} thas a tree density of ${treeDensity} trees per square km`);
+//     }
+
+//     addToParks() {
+//         this.numberOfParks++;
+//         this.allParkAges.push(this.age);
+//     }
+
+// }
+
+// const newPark = new IndividualPark()
+
+class Parks {
+    constructor(names, ages) {
+        this.names = names;
+        this.ages = ages;
+    }
+
+    averageAge() {
+
+        const numberOfParks = this.names;
+
+        // Add all ages 
+        const reducer = (accumulator, currentValue) => accumulator + currentValue;
+        const combinedAges = this.ages.reduce(reducer);
+
+        // Get average age
+        const avAge = combinedAges / numberOfParks.length;
+        console.log(`Our ${numberOfParks.length} have an average age of ${avAge}`);
+
+
+    }
+}
+
+const newParks = new Parks(['Green Park', 'National Park', 'Oak Park'], [10, 13, 14]);
+newParks.averageAge();
