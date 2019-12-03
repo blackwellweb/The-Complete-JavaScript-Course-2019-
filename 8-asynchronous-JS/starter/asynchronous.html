@@ -1,15 +1,277 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Asynchronous JavaScript</title>
 </head>
+
 <body>
     <h1>Asynchronous JavaScript</h1>
     <script>
-        
+
+        /*  An Example of Asynchronous JavaScript --------------------------*/
+        /*------------------------------------------------------------------*/
+        /*------------------------------------------------------------------*/
+
+        // synchronous means our code is executed one after the other, line by line
+        // just in the order that they appear in the code
+
+
+        // const second = () => {
+        //     setTimeout(() => {
+        //         console.log('Aysync Hey there');
+        //     }, 2000);
+        // }
+
+
+        // const first = () => {
+        //     console.log('Hay there');
+        //     second();
+        //     console.log('The end');
+        // }
+        // first();
+
+
+        /*  Understanding Asynchronous JavaScript: The Event Loop ----------*/
+        /*------------------------------------------------------------------*/
+        /*------------------------------------------------------------------*/
+
+        // We allow asynchronous functions to run in the "background"
+        // We pass in callbacks that run once the function has finished its work
+        // Then move on immediately Non-blocking "Don't stop the code to wait for it to finish"
+
+
+        /*  The Old Way: Asynchronous JavaScript with Callbacks ------------*/
+        /*------------------------------------------------------------------*/
+        /*------------------------------------------------------------------*/
+
+        // function getRecipe() {
+        //     setTimeout(() => {
+        //         const recipeID = [523, 883, 432, 974];
+        //         console.log(recipeID);
+
+
+        //         setTimeout(id => {
+        //             const recipe = { title: 'Fresh tomato pasta', publisher: 'Jonas' }
+        //             console.log(`${id}: ${recipe.title}`);
+
+        //             setTimeout(publisher => {
+        //                 const recipe2 = { title: 'Italian Pizza', publisher: 'Jonas' }
+        //                 console.log(recipe2);
+
+        //             }, 1500, recipe.publisher);
+        //         }, 1000, recipeID[2]);
+        //     }, 1500);
+        // }
+
+        // getRecipe();
+
+        /*   From Callback Hell to Promises --------------------------------*/
+        /*------------------------------------------------------------------*/
+        /*------------------------------------------------------------------*/
+
+        // A Promise is an Object that keeps track about whether a certain
+        // event has happened already or not;
+        // Then it Determins what happens after the evebt has happened
+        // It implement the concept of a future value that we're expecting
+
+        // Promise state
+        // - Before the event has happend the promise is pending
+        // - Then after the event has happend the promise is called settled or resolved "same thing"
+        // - When the promise is successful, a result is available then the promise is fulfilled
+        //   but if there as an error then the promise is rejected
+
+        // In more practical terms we can produce and consume promises
+        // So when we produce a promise we create a new promise and send a result using that promise
+        // Then when we consume it we can use call back functions for fulfillment and of rejection of our promise
+
+        // Into the promise we pass in a function called the exexutor, which
+        // is afunction that will be immediatelt called once the promise is created
+        // const getIDs = new Promise((resolve, reject) => {
+        //     setTimeout(() => {
+        //         resolve([523, 883, 432, 974]);
+        //         //reject([523, 883, 432, 974]); // just to see if .catch works
+        //     }, 1500);
+        // });
+
+        // const getRecipe = recID => {
+        //     return new Promise((resolve, reject) => {
+        //         setTimeout((ID) => {
+        //             const recipe = { title: 'Fresh tomato pasta', publisher: 'Jonas' }
+        //             resolve(`${ID}: ${recipe.title}`);
+        //         }, 1500, recID);
+        //     });
+        // };
+
+        // const getRelated = publisher => {
+        //     return new Promise((resolve, reject) => {
+        //         setTimeout(pub => {
+        //             const recipe = { title: 'Italian Pizza', publisher: 'Jonas' }
+        //             resolve(`${pub}: ${recipe.title}`);
+        //         }, 1500, publisher);
+        //     });
+        // };
+
+        // getIDs
+        //     .then(IDs => {
+        //         console.log(IDs);
+        //         return getRecipe(IDs[2]);
+        //     })
+        //     .then(recipe => {
+        //         console.log(recipe);
+        //         return getRelated('Jonas');
+        //     })
+        //     .then(recipe => {
+        //         console.log(recipe);
+        //     })
+        //     .catch(err => {
+        //         console.log('Error!!');
+        //     });
+
+        /*   From Promises to Async/Await ----------------------------------*/
+        /*------------------------------------------------------------------*/
+        /*------------------------------------------------------------------*/
+
+        // const getIDs = new Promise((resolve, reject) => {
+        //     setTimeout(() => {
+        //         resolve([523, 883, 432, 974]);
+        //     }, 1500);
+        // });
+
+        // const getRecipe = recID => {
+        //     return new Promise((resolve, reject) => {
+        //         setTimeout((ID) => {
+        //             const recipe = { title: 'Fresh tomato pasta', publisher: 'Jonas' }
+        //             resolve(`${ID}: ${recipe.title}`);
+        //         }, 1500, recID);
+        //     });
+        // };
+
+        // const getRelated = publisher => {
+        //     return new Promise((resolve, reject) => {
+        //         setTimeout(pub => {
+        //             const recipe = { title: 'Italian Pizza', publisher: 'Jonas' }
+        //             resolve(`${pub}: ${recipe.title}`);
+        //         }, 1500, publisher);
+        //     });
+        // };
+
+        // async function getRecipeAW() {
+        //     const IDs = await getIDs;
+        //     console.log(IDs);
+
+        //     const recipe = await getRecipe(IDs[2]);
+        //     console.log(recipe);
+
+        //     const related = await getRelated('Jonas Schmedtmann');
+        //     console.log(related);
+
+        //     return recipe;
+        // };
+
+        // this function automatically returns a promise so we can use the .then method on it
+        //getRecipeAW().then(result => console.log(`${result} is the best ever!`));
+
+
+        /* AJAX and APIs ---------------------------------------------------*/
+        /*------------------------------------------------------------------*/
+        /*------------------------------------------------------------------*/
+
+        // So AJAX stands for Asynchronous Javascript and XML.
+        // And basically, it allows us to asynchronously communicate with remote servers
+        // without reloading the entire page
+
+        // So API stands for Application Programming Interface
+        // And on a very high level, it's basically a piece of software that can
+        // be used by another piece of software in order to basically allow applications 
+        // to talk to each other
+        // However the API is not the server ifself, but it like a part of the server.
+        // Like an application that receives requests and sends back responses.
+
+
+        /* Making AJAX Calls with Fetch and Promises------------------------*/
+        /*------------------------------------------------------------------*/
+        /*------------------------------------------------------------------*/
+
+        // Fetch is a web API, that is available to us in the browers but
+        // is not part really part off the JavaScript language itself
+        // Fetch just allows us to make AJAX calls in a very simple way
+        // Note: we use to do this by using the complex XML HttpRequest interface
+
+
+        // Note: That JSON  is a text-based data format which is very similar to 
+        // JavaScript objects, but the difference is that JSON is really just a 
+        // single string and not an entire object inside the JavaScript engine.
+
+        // Note: The error no access control allow origin header is present on requested resource.
+        // The reason for this is the so-called same origin policy in JavaScript,
+        // which basically prevents us from making AJAX requests to a domain different than our own domain
+        // Because of this same origin policy we cannot access this resource.
+        // In order to actually allow developers to make requests to different domains,
+        // something called Cross Origin Resource Sharing, or CORS, was developed.
+        // in simple terms, the developers of the API that we are requesting from, they need to 
+        // implement CORS on their sever
+        // But unfortunately the API we are using (MetaWeather) thay have not done this
+        // Developers use a work around to solve this by proxying or channelign the request through 
+        // their own sever, like doing AJAX requests on their own server
+        // We are using localhost so we can't do thsi but we can use a service that does it for us
+        // So we are going to use a proxy called crossorigin.me (https://crossorigin.me/)
+
+        // Note: crossorigin.me (https://crossorigin.me/) didn't work the tutoral said
+        // to use it but something was down on their end at the time i was doing this lesson
+        // however I ran it through "https://api.codetabs.com/v1/proxy?quest=" and that worked
+
+        // function getWeather(woeid) {
+
+        //     fetch(`https://api.codetabs.com/v1/proxy?quest=https://www.metaweather.com/api/location/${woeid}/`)
+        //         .then(result => {
+        //             //console.log(result);
+        //             return result.json();
+        //         })
+        //         .then(data => {
+        //             //console.log(data);
+        //             const today = data.consolidated_weather[0];
+        //             console.log(`Temperatures in ${data.title} stay between ${today.min_temp} and ${today.max_temp}.`);
+        //         })
+        //         .catch(error => {
+        //             console.log(error);
+        //         });
+        // }
+        // getWeather(2487956);
+        // getWeather(44418);
+
+        /* Making AJAX Calls with Fetch and Async/Await---------------------*/
+        /*------------------------------------------------------------------*/
+        /*------------------------------------------------------------------*/
+
+        async function getWeatherAW(woeid) {
+            try {
+                const result = await fetch(`https://api.codetabs.com/v1/proxy?quest=https://www.metaweather.com/api/location/${woeid}/`);
+                const data = await result.json();
+                const tomorrow = data.consolidated_weather[1];
+                console.log(`Temperatures in ${data.title} stay between ${tomorrow.min_temp} and ${tomorrow.max_temp}.`);
+                return data;
+            } catch (error) {
+                //console.log(error);
+                alert(error);
+            }
+        }
+        //getWeatherAW(2487956);
+        //getWeatherAW(44418);
+
+        // This works because getWeatherAW() returns a promise
+        let dataLondon;
+        getWeatherAW(44418).then(data => {
+            dataLondon = data;
+            console.log(dataLondon);
+        });
+
+
+
     </script>
 </body>
+
 </html>

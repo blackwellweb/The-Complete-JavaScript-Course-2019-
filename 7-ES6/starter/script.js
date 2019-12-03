@@ -902,3 +902,48 @@ class Street extends Element {
 
 const allParks = [new Park('Green Park', 1987, 0.2, 215), new Park('National Park', 1894, 2.9, 3541), new Park('Oak Park', 1953, 0.4, 949)];
 const allStreets = [new Street('Ocean Avenue', 1999, 1.1, 4), new Street('Evergreen Street', 2008, 2.7, 2), new Street('4th Street', 2015, 0.8), new Street('Sunset Boulevard', 1982, 2.5, 5)];
+
+
+function calc(arr) {
+
+    // .reduce() will loop through an array but will accumulate all the values  
+    // into a single value
+    const sum = arr.reduce((prev, cur, index) => prev + cur, 0);
+
+    return [sum, sum / arr.length];
+}
+
+
+
+function reportParks(p) {
+
+    console.log('------ Park Report ------');
+
+    // Density
+    p.forEach(el => el.treeDensity());
+
+    // Average age
+    const ages = p.map(el => new Date().getFullYear() - el.buildYear);
+    const [totalAge, avAge] = calc(ages);
+    console.log(`Our ${p.length} parks have a average age of ${avAge} years.`);
+
+    // Which park has more than 1000 tress
+    const i = p.map(el => el.numTrees).findIndex(el => el >= 1000);
+    console.log(`${p[i].name} has more than 1000 trees.`);
+}
+
+
+function reportStreets(s) {
+
+    console.log('------ Streets Report ------');
+
+    // Total and average lenght of the town's streets
+    const [totalLenght, avglenght] = calc(s.map(el => el.length));
+    console.log(`Our ${s.length} streets have a total lenght of ${totalLenght} km, with an average of ${avglenght} km.`);
+
+    // Classify sizes
+    s.forEach(el => el.classifyStreet());
+}
+
+reportParks(allParks);
+reportStreets(allStreets);
