@@ -1,5 +1,11 @@
 
 import { elements } from './base';
+import { Fraction } from 'fractional';
+
+const formatCount = count => {
+
+
+};
 
 export const clearRecipe = () => {
     elements.recipe.innerHTML = '';
