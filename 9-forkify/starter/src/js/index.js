@@ -78,7 +78,7 @@ elements.serachResPages.addEventListener('click', e => {
 });
 
 
-/* Recipe Controller------------------------------------------------*/
+/* Recipe Controller -----------------------------------------------*/
 /*------------------------------------------------------------------*/
 /*------------------------------------------------------------------*/
 
@@ -120,3 +120,19 @@ const controlRecipe = async () => {
 }
 
 ['hashchange', 'load'].forEach(event => window.addEventListener(event, controlRecipe));
+
+
+/* Handling recipe button clicks  ----------------------------------*/
+/*------------------------------------------------------------------*/
+/*------------------------------------------------------------------*/
+elements.recipe.addEventListener('click', e => {
+    if (e.target.matches('.btn-decrease , .btn-decrease *')) { // NOTE .btn-decrease * =  any child of btn-decrease
+        // Decrease buttion is clicked
+        state.recipe.updateServings('dec');
+    } else if (e.target.matches('.btn-increase , .btn-increase *')) {
+        // Increase button is clicked
+        state.recipe.updateServings('inc');
+    }
+
+    console.log(state.recipe);
+});
