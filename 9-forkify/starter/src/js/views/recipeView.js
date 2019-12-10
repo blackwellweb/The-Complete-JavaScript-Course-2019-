@@ -119,4 +119,16 @@ export const renderRecipe = recipe => {
     `;
 
     elements.recipe.insertAdjacentHTML('afterBegin', markup);
-}
+};
+
+export const updateServingsIngredients = recipe => {
+    // Update servings
+    document.querySelector('.recipe__info-data--people').textContent = recipe.servings;
+    
+    // Update ingredeints
+    const countElements = Array.from(document.querySelectorAll('.recipe__count'));
+    countElements.forEach((el, i) => {
+        el.textContent = formatCount(recipe.ingredients[i].count); // NOTE: This loops thought the countElements Array and the ingtedients array by using the loops index. This could be useful for other projects
+    });
+
+};

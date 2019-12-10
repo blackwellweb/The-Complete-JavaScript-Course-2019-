@@ -47,7 +47,7 @@ const controlSearch = async () => {
 
             // 5) render results on UI
             clearLoader();
-            searchView.renderResults(state.search.result);
+            searchView.renderResults(await state.search.result);
 
         } catch (err) {
             alert('Something is wrong with the search....');
@@ -125,13 +125,19 @@ const controlRecipe = async () => {
 /* Handling recipe button clicks  ----------------------------------*/
 /*------------------------------------------------------------------*/
 /*------------------------------------------------------------------*/
+
 elements.recipe.addEventListener('click', e => {
     if (e.target.matches('.btn-decrease , .btn-decrease *')) { // NOTE .btn-decrease * =  any child of btn-decrease
         // Decrease buttion is clicked
-        state.recipe.updateServings('dec');
+        if (state.recipe.servings > 1) {
+            console.log('I was fired');
+            state.recipe.updateServings('dec');
+            recipeView.updateServingsIngredients(state.recipe);
+        }
     } else if (e.target.matches('.btn-increase , .btn-increase *')) {
         // Increase button is clicked
         state.recipe.updateServings('inc');
+        recipeView.updateServingsIngredients(state.recipe);
     }
 
     console.log(state.recipe);
