@@ -9,17 +9,15 @@ const url = require('url');
 const server = http.createServer((req, res) => {
 
     const pathName = url.parse(req.url, true).pathname;
-    const query = url.parse(req.url, true).query;
-
-    console.log(query);
+    const id = url.parse(req.url, true).query.id;
 
     if (pathName === '/products' || pathName === '/') {
         res.writeHead(200, { 'Conent-type': 'text/html' })
         res.end('This is the PRODUCTS page!');
 
-    } else if (pathName === '/laptop') {
+    } else if (pathName === '/laptop' && id < laptopData.lenght) {
         res.writeHead(200, { 'Conent-type': 'text/html' })
-        res.end('This is the LAPTOP page!');
+        res.end(`This is the LAPTOP ${id}!`);
 
     } else {
         res.writeHead(404, { 'Conent-type': 'text/html' })
